@@ -8,6 +8,8 @@ findAllIngredient = () => ingredientModel.find();
 
 findIngredientById = ingredientId => ingredientModel.findById(ingredientId);
 
+findIngredientsByUser = userId => ingredientModel.find({ownedBy : userId})
+
 updateIngredient = (userId, updatedIngredient) =>
     ingredientModel.update({_id: userId}, {$set: updatedIngredient});
 
