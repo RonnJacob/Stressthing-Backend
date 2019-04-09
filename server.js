@@ -25,12 +25,7 @@ app.get('',function(req, res) {
     res.send('<h1>Whiteboard RESTful Services<h1>');
 });
 
-require('./data/daos/chef.dao.server')(app);
-require('./data/daos/ingredient.dao.server')(app);
-require('./data/daos/nutritionist.dao.server')(app);
-require('./data/daos/recipe.dao.server')(app);
-require('./data/daos/regularUser.dao.server')(app);
-require('./data/daos/user.dao.server')(app);
+require('./data/services/user.services')(app);
 
 app.listen(port);
 
