@@ -1,10 +1,16 @@
 var express = require('express');
 var app = express();
+var session = require('express-session');
 
 require("./data/db")();
 
 var bodyParser = require('body-parser');
 app.use(bodyParser.json());
+app.use(session({
+    resave: false,
+    saveUninitialized: true,
+    secret: 'Shhh this is a secret'
+}));
 
 app.use(function(req, res, next) {
     res.header("Access-Control-Allow-Origin",
@@ -14,8 +20,14 @@ app.use(function(req, res, next) {
     res.header("Access-Control-Allow-Methods",
         "GET, POST, PUT, DELETE, OPTIONS");
     res.header("Access-Control-Allow-Credentials", "true");
-    next();
+    if (req.session && req.session.user) {
+        next();
+    }
+    else{
+        next();
+    }
 });
+
 
 const port = process.env.PORT || '3000';
 app.set('port', port);
