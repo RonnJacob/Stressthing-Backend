@@ -21,6 +21,8 @@ app.use(function(req, res, next) {
         "GET, POST, PUT, DELETE, OPTIONS");
     res.header("Access-Control-Allow-Credentials", "true");
     if (req.session && req.session.user) {
+        //TODO Check whether there is a current session and if the user value for the session is valid.
+        //     Will implement this after we get the backend sorted out completely.
         next();
     }
     else{

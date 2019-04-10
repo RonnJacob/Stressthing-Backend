@@ -1,27 +1,16 @@
 const regularUserModel = require('../daos/regularUser.dao.server');
 
-
-const createUser = (req, res) =>{
-    var user = req.body;
-    userDao.createUser(user).then(user => res.send(user));
-};
-
-const findUsers = (req, res) => {
-    userDao.findAllUser().then(users => res.send(users));
-};
-
-const findUserById = (req, res) => {
-    userDao.findUserById(req.params.id).then(user => res.send(user));
-};
-
-const updateUser = (req, res) => {
-    userDao.updateUser(req.params.id, req.body).then(user => res.send(user));
-};
-
-const deleteUser = (req, res) => {
-    userDao.deleteUser(req.params.id).then(res.send('User deleted from the user database.'));
-};
-
+//TODO
+//1. Add favorite recipe (Only read privilges).
+//2. Delete recipe from list of favorites.
+//3. Create owning recipe.
+//4. Reading owning recipe (By ID and all owned recipes)
+//5. Updating owned recipes.
+//6. Deleting owned recipes.
+//7. Adding an ingredient to list of ingredients.
+//8. Updating a list of ingredients.
+//9. Deleting an ingredient from a list of ingredients.
+//10. Reading a list of ingredients.
 
 module.exports = function(app) {
 };
