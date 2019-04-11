@@ -13,6 +13,9 @@ updateRecipe = (userId, updatedRecipe) =>
 
 deleteRecipe = (recipeId) => recipeModel.remove({_id: recipeId});
 
+//doubtful
+findRecipesForIngredients = (givenIngredients) => recipeModel.find( { ingredients: { $all: givenIngredients } } );
+
 module.exports = {
     createRecipe, findAllRecipe, findRecipeById, updateRecipe,deleteRecipe
 };
