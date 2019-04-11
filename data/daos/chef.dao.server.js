@@ -13,6 +13,11 @@ updateChef = (userId, updatedChef) =>
 
 deleteChef = (chefId) => chefModel.remove({_id: chefId});
 
+findEndorsedRecipesByChef = userId => chefModel.find( { _id: userId }, { endorsedRecipes: 1 } )
+
+findOwnRecipesByChef = userId => chefModel.find( { _id: userId }, { ownRecipes: 1 } )
+
+
 module.exports = {
-    createChef, findAllChef, findChefById, updateChef,deleteChef
+    createChef, findAllChef, findChefById, updateChef,deleteChef,findEndorsedRecipesByChef,findOwnRecipesByChef
 };
