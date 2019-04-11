@@ -6,6 +6,6 @@ const recipeSchema = mongoose.Schema({
     endorsedByChef: [{type: ObjectId, ref: 'UserModel'}],
     endorsedByNutritionist: [{type: ObjectId, ref: 'UserModel'}],
     image: String,
-    ingredients: [{type: ObjectId, ref: 'IngredientModel'}]
+    ingredients: [{type: String}]
 }, {collection: 'recipes'});
 module.exports = recipeSchema;
