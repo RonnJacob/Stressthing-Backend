@@ -39,7 +39,7 @@ app.get('',function(req, res) {
     res.send('<h1>Whiteboard RESTful Services<h1>');
 });
 
-require('./data/services/user.services')(app);
+require('./services/user.services')(app);
 
 app.listen(port);
 
