@@ -43,5 +43,7 @@ require('./services/user.services')(app);
 require('./services/regularUser.services')(app);
 require('./services/ingredients.services')(app);
 require('./services/recipes.services')(app);
+require('./services/nutritionist.services')(app);
+require('./services/chef.services')(app);
 app.listen(port);
 
