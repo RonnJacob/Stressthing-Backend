@@ -40,6 +40,8 @@ app.get('',function(req, res) {
 });
 
 require('./services/user.services')(app);
+require('./services/regularUser.services')(app);
 require('./services/ingredients.services')(app);
+require('./services/recipes.services')(app);
 app.listen(port);
 

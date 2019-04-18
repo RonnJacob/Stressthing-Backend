@@ -1,4 +1,5 @@
 const regularUserModel = require('../daos/regularUser.dao.server');
+const recipeModel = require('../daos/recipe.dao.server');
 
 //TODO
 //1. Add favorite recipe (Only read privilges).
@@ -12,5 +13,28 @@ const regularUserModel = require('../daos/regularUser.dao.server');
 //9. Deleting an ingredient from a list of ingredients.
 //10. Reading a list of ingredients.
 
-module.exports = function(app) {
+module.exports = function (app) {
+
+    favoriteARecipe = (req, res) => {
+        regularUserModel.favoriteARecipe(req.params['userId'], req.params['recipeId'])
+            .then(res.send('Recipe with ID ' + req.params['recipeId'] + ' ' +
+                'has been added to favorites of user with ID ' + req.params['userId'] + ": " + +res.statusCode));
+    }
+
+    removeAFavorite = (req, res) => {
+        regularUserModel.removeAFavorite(req.params['userId'], req.params['recipeId'])
+            .then(res.send('Recipe with ID ' + req.params['recipeId'] + ' ' +
+                'has been removed from favorites of user with ID ' + req.params['userId'] + ": " + +res.statusCode));
+    }
+
+    findAllFavorites = (req, res) => {
+        regularUserModel.findAllFavoriteRecipes(req.params['userID'])
+            .then(recipeIds => recipeModel.findAllForRecipeIds(recipeIds))
+            .then(recipes => res.send(recipes));
+    }
+
+    app.post('/api/users/:userId/recipes/:recipeId', favoriteARecipe)
+    app.get('/api/users/:userId/recipes', findAllFavorites)
+    app.delete('/api/users/:userId/recipes/:recipeId', removeAFavorite)
+
 };
