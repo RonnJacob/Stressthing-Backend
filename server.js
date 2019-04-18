@@ -36,10 +36,10 @@ app.set('port', port);
 
 
 app.get('',function(req, res) {
-    res.send('<h1>Whiteboard RESTful Services<h1>');
+    res.send('<h1>Recipe RESTful Services<h1>');
 });
 
 require('./services/user.services')(app);
-
+require('./services/ingredients.services')(app);
 app.listen(port);
 

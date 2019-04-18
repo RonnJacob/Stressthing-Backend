@@ -1,4 +1,4 @@
-const ingredientDao = require('/daos/ingredient.dao.server')
+const ingredientDao = require('../daos/ingredient.dao.server')
 module.exports = app => {
     addIngredient = (req, res) => {
         ingredientDao.createIngredient(req.body).then(ingredient => res.send(ingredient));
@@ -17,12 +17,12 @@ module.exports = app => {
     }
 
     updateIngredient = (req, res) =>{
-        ingredientDao.updateIngredient(req.params['ingredientId'], req.body).then(res.send('Ingredient with ID'+ req.params['ingredientId']+' updated from records with status code:' +res.statusCode));
+        ingredientDao.updateIngredient(req.params['ingredientId'], req.body.name).then(res.send('Ingredient with ID'+ req.params['ingredientId']+' updated from records with status code:' +res.statusCode));
     }
 
-    app.put('/api/ingredient/:ingredientId', updateIngredient)
-    app.delete('/api/ingredient/:ingredientId', deleteIngredient)
-    app.get('/api/ingredient/:ingredientId', findIngredientById)
+    app.put('/api/ingredients/:ingredientId', updateIngredient)
+    app.delete('/api/ingredients/:ingredientId', deleteIngredient)
+    app.get('/api/ingredients/:ingredientId', findIngredientById)
     app.get('/api/users/:userId/ingredients', findIngredientsByUser)
         app.post('/api/ingredient', addIngredient)
 }
