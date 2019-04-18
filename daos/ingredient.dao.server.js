@@ -10,11 +10,11 @@ findIngredientById = ingredientId => ingredientModel.findById(ingredientId);
 
 findIngredientsByUser = userId => ingredientModel.find({ownedBy : userId})
 
-updateIngredient = (userId, updatedIngredient) =>
-    ingredientModel.update({_id: userId}, {$set: updatedIngredient});
+updateIngredient = (userId, updatedIngredientName) =>
+    ingredientModel.update({_id: userId}, {$set: {name:updatedIngredientName}});
 
 deleteIngredient = (ingredientId) => ingredientModel.remove({_id: ingredientId});
 
 module.exports = {
-    createIngredient, findAllIngredient, findIngredientById, updateIngredient,deleteIngredient
+    createIngredient, findAllIngredient, findIngredientById, updateIngredient,deleteIngredient,findIngredientsByUser
 };
