@@ -1,10 +1,12 @@
 var express = require('express');
+const cors = require('cors');
 var app = express();
 var session = require('express-session');
 
 require("./data/db")();
 
 var bodyParser = require('body-parser');
+app.use(cors());
 app.use(bodyParser.json());
 app.use(session({
     resave: false,

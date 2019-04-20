@@ -11,14 +11,14 @@ module.exports = function (app) {
             password: user["password"],
             firstName: user["firstName"],
             lastName: user["lastName"],
-            userType: "REGULAR"
+            userType: "NUTRITIONIST"
         };
 
         return userDao.createUser(u).then(
             res => {
                 nutritionist = {
                     _id: res["_id"],
-                    appointmentLink:user.nutritionist["appointmentLink"]
+                    appointmentLink:user["appointmentLink"]
                 }
                 return nutritionistDao.createNutritionist(nutritionist).then(newUser => {
                     req.session.user = newUser;
