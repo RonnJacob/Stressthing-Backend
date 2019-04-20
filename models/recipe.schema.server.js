@@ -1,10 +1,10 @@
 const mongoose = require('mongoose');
 const recipeSchema = mongoose.Schema({
     name: String,
-    ownedBy: {type: ObjectId, ref: 'UserModel'},
+    ownedBy: {type: String, ref: 'UserModel'},
     steps: String,
-    endorsedByChef: [{type: ObjectId, ref: 'UserModel'}],
-    endorsedByNutritionist: [{type: ObjectId, ref: 'UserModel'}],
+    endorsedByChef: [{type: String, ref: 'UserModel'}],
+    endorsedByNutritionist: [{type: String, ref: 'UserModel'}],
     image: String,
     ingredients: [{type: String}]
 }, {collection: 'recipes'});

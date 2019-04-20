@@ -1,13 +1,13 @@
 const mongoose = require('mongoose');
 const userDao = require('../daos/user.dao.server')
 
-const registerUser = (req, res) =>{
-    var user = req.body;
-    userDao.createUser(user).then(user => {
-        req.session.user = user;
-        res.send(user);
-    });
-};
+// const registerUser = (req, res) =>{
+//     var user = req.body;
+//     userDao.createUser(user).then(user => {
+//         req.session.user = user;
+//         res.send(user);
+//     });
+// };
 
 const findUsers = (req, res) => {
     userDao.findAllUser().then(users => res.send(users));
@@ -53,7 +53,6 @@ module.exports = function(app) {
     app.get('/api/user', findUsers);
     app.get('/api/user/:id', findUserById);
     app.put('/api/user/:id', updateUser);
-    app.post('/api/register', registerUser);
     app.delete('/api/user/:id', deleteUser);
     app.post('/api/logout', logout);
     app.get('/api/profile', profile);

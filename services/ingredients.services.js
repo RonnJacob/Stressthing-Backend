@@ -13,16 +13,16 @@ module.exports = app => {
     }
 
     deleteIngredient = (req, res) => {
-        ingredientDao.deleteIngredient(req.params['ingredientId']).then(res.send('Operation completed with status code:' +res.statusCode));
+        ingredientDao.deleteIngredient(req.params['ingredientId']).then(res.send('Operation completed with status code:' + res.statusCode));
     }
 
-    updateIngredient = (req, res) =>{
-        ingredientDao.updateIngredient(req.params['ingredientId'], req.body.name).then(res.send('Ingredient with ID'+ req.params['ingredientId']+' updated from records with status code:' +res.statusCode));
+    updateIngredient = (req, res) => {
+        ingredientDao.updateIngredient(req.params['ingredientId'], req.body.name).then(res.send('Ingredient with ID' + req.params['ingredientId'] + ' updated from records with status code:' + res.statusCode));
     }
 
     app.put('/api/ingredients/:ingredientId', updateIngredient)
     app.delete('/api/ingredients/:ingredientId', deleteIngredient)
     app.get('/api/ingredients/:ingredientId', findIngredientById)
     app.get('/api/users/:userId/ingredients', findIngredientsByUser)
-        app.post('/api/ingredient', addIngredient)
+    app.post('/api/ingredient', addIngredient)
 }

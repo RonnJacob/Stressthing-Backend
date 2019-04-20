@@ -8,14 +8,25 @@ findAllRecipe = () => recipeModel.find();
 
 findRecipeById = recipeId => recipeModel.findById(recipeId);
 
-updateRecipe = (userId, updatedRecipe) =>
-    recipeModel.update({_id: userId}, {$set: updatedRecipe});
+updateRecipe = (recipeId, updatedRecipe) =>
+    recipeModel.update({_id: recipeId}, {$set:
+            {
+                name:updatedRecipe.name,
+                steps: updatedRecipe.steps,
+                ingredients: updatedRecipe.ingredients,
+                image: updatedRecipe.image
+            }
+    });
 
 deleteRecipe = (recipeId) => recipeModel.remove({_id: recipeId});
 
+findRecipesOwnedByUser = userId => recipeModel.find({ownedBy: userId})
+
+findAllForRecipeIds = recipeIds => recipeModel.find({$in: {_id: recipeIds}})
+
 //doubtful
-findRecipesForIngredients = (givenIngredients) => recipeModel.find( { ingredients: { $all: givenIngredients } } );
+findRecipesForIngredients = (givenIngredients) => recipeModel.find({ingredients: {$all: givenIngredients}});
 
 module.exports = {
-    createRecipe, findAllRecipe, findRecipeById, updateRecipe,deleteRecipe
+    createRecipe, findAllRecipe, findRecipeById, updateRecipe, deleteRecipe, findRecipesOwnedByUser, findAllForRecipeIds
 };
