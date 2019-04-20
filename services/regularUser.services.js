@@ -1,4 +1,4 @@
-const regularUserModel = require('../daos/regularUser.dao.server');
+const regularUserDao= require('../daos/regularUser.dao.server');
 
 //TODO
 //1. Add favorite recipe (Only read privilges).
@@ -11,6 +11,23 @@ const regularUserModel = require('../daos/regularUser.dao.server');
 //8. Updating a list of ingredients.
 //9. Deleting an ingredient from a list of ingredients.
 //10. Reading a list of ingredients.
+createRegularUser = (req, res) => {
+    regularUserDao.createRegularUser(req.body)
+        .then(res.send('Regular User Added!'));
+};
+
+findAllRegularUser = (req, res) => {
+    regularUserDao.findAllRegularUser()
+        .then(regUsers => res.send(regUsers));
+};
+
+findRegularUserById = (req, res) => {
+    regularUserDao.findRegularUserById(req.params.id)
+        .then(regUser => res.send(regUser));
+};
 
 module.exports = function(app) {
+    app.post('/api/regular',createRegularUser);
+    app.get('/api/regular',findAllRegularUser);
+    app.get('/api/regular/:id',findRegularUserById)
 };

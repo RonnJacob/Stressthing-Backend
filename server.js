@@ -31,7 +31,7 @@ app.use(function(req, res, next) {
 });
 
 
-const port = process.env.PORT || '3000';
+const port = process.env.PORT || '4200';
 app.set('port', port);
 
 
@@ -40,6 +40,8 @@ app.get('',function(req, res) {
 });
 
 require('./services/user.services')(app);
+require('./services/nutrionist.services')(app);
+require('./services/chefUser.services')(app);
 require('./services/ingredients.services')(app);
 app.listen(port);
 
