@@ -40,6 +40,10 @@ const login = (req, res) => {
     );
 };
 
+const findUserByUsername = (req, res) => {
+    userDao.findUserByUsername(req.params.username).then(user => res.send(user));
+};
+
 const profile = (req, res) => {
     res.send(req.session.user);
 };
@@ -52,6 +56,7 @@ const logout = (req, res) => {
 module.exports = function(app) {
     app.get('/api/user', findUsers);
     app.get('/api/user/:id', findUserById);
+    app.get('/api/username/:username', findUserByUsername);
     app.put('/api/user/:id', updateUser);
     app.delete('/api/user/:id', deleteUser);
     app.post('/api/logout', logout);
