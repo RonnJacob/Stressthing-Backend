@@ -68,8 +68,8 @@ module.exports = function (app) {
             .then(recipes => res.send(recipes));
     }
     app.post('/api/registerUser', registerRegularUser);
-    app.post('/api/users/:userId/recipes/:recipeId', favoriteARecipe)
-    app.get('/api/users/:userId/recipes', findAllFavorites)
-    app.delete('/api/users/:userId/recipes/:recipeId', removeAFavorite)
+    app.post('/api/regularUser/:userId/recipes/:recipeId', favoriteARecipe)
+    app.get('/api/regularUser/:userId/recipes', findAllFavorites)
+    app.delete('/api/regularUser/:userId/recipes/:recipeId', removeAFavorite)
 
 };

@@ -13,6 +13,16 @@ updateNutritionist = (userId, updatedNutritionist) =>
 
 deleteNutritionist = (nutritionistId) => nutritionistModel.remove({_id: nutritionistId});
 
+endorseRecipe = (userId, recipeId) => nutritionistModel.update({_id: userId},
+    {$push: {endorsedRecipes: recipeId}});
+
+removeEndorsed = (userId, recipeId) => nutritionistModel.update({_id: userId},
+    {$pull: {endorsedRecipes: recipeId}});
+
+findAllEndorsed = (userId) => nutritionistModel.find({_id: userId},
+    {endorsedRecipes: 1, _id: 0});
+
 module.exports = {
-    createNutritionist, findAllNutritionist, findNutritionistById, updateNutritionist,deleteNutritionist
+    createNutritionist, findAllNutritionist, findNutritionistById, updateNutritionist, deleteNutritionist,
+    endorseRecipe, removeEndorsed, findAllEndorsed
 };
