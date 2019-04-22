@@ -19,20 +19,14 @@ module.exports = function (app) {
 
     registerRegularUser = (req, resp) => {
         var user = req.body;
-        const u = new User();
-        // u = {
-        //     username: user["username"],
-        //     password: user["password"],
-        //     firstName: user["firstName"],
-        //     lastName: user["lastName"],
-        //     userType: "REGULAR"
-        // };
-
-        u.username = user["username"];
-        u.password = u.generateHash(user["password"]);
-        u.firstName = user["firstName"];
-        u.lastName = user["lastName"];
-        u.userType = "REGULAR";
+//         const u = new User();
+        u = {
+            username: user["username"],
+            password: user["password"],
+            firstName: user["firstName"],
+            lastName: user["lastName"],
+            userType: "REGULAR"
+        };
         return userDao.createUser(u).then(
             res => {
                 regUser = {
