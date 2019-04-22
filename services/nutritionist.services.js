@@ -32,6 +32,10 @@ module.exports = function (app) {
         // });
     };
 
+    findById = (req, res) => {
+        nutritionistDao.findNutritionistById(req.params['userId']).then(user => res.send(user));
+    };
+
     endorseRecipe = (req, res) => {
         nutritionistDao.endorseRecipe(req.params['userId'], req.params['recipeId'])
             .then(() => recipeModel.endorseByNutritionist(req.params['userId'], req.params['recipeId']))
@@ -56,6 +60,7 @@ module.exports = function (app) {
     app.post('/api/registerNutritionist', registerNutritionist);
     app.post('/api/nutritionist/:userId/recipes/:recipeId', endorseRecipe)
     app.get('/api/nutritionist/:userId/recipes', findAllEndorsed)
+    app.get('/api/nutritionist/:userId', findById)
     app.delete('/api/nutritionist/:userId/recipes/:recipeId', removeEndorsed)
 
 };

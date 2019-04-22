@@ -6,7 +6,7 @@ createChef = chef =>
 
 findAllChef = () => chefModel.find();
 
-findChefById = chefId => chefModel.findById(chefId);
+findChefById = chefId => chefModel.find({_id: chefId});
 
 updateChef = (userId, updatedChef) =>
     chefModel.update({_id: userId}, {$set: updatedChef});

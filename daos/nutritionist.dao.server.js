@@ -6,7 +6,7 @@ createNutritionist = nutritionist =>
 
 findAllNutritionist = () => nutritionistModel.find();
 
-findNutritionistById = nutritionistId => nutritionistModel.findById(nutritionistId);
+findNutritionistById = nutritionistId => nutritionistModel.find({_id: nutritionistId});
 
 updateNutritionist = (userId, updatedNutritionist) =>
     nutritionistModel.update({_id: userId}, {$set: updatedNutritionist});

@@ -5,7 +5,7 @@ createRegularUser = regularUser =>
 
 findAllRegularUser = () => regularUserModel.find();
 
-findRegularUserById = regularUserId => regularUserModel.findById(regularUserId);
+findRegularUserById = regularUserId => regularUserModel.find({_id: regularUserId});
 
 findOwnedRecipesForRegularUser = regularUserId => regularUserModel.find({_id: regularUserId}, {ownRecipes: 1})
 

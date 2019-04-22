@@ -32,6 +32,10 @@ module.exports = function (app) {
         // });
     };
 
+    findById = (req, res) => {
+        chefDao.findChefById(req.params['userId']).then(user => res.send(user));
+    };
+
     endorseRecipe = (req, res) => {
         chefDao.endorseRecipe(req.params['userId'], req.params['recipeId'])
             .then(() => recipeModel.endorseByChef(req.params['userId'], req.params['recipeId']))
@@ -56,6 +60,7 @@ module.exports = function (app) {
     app.post('/api/registerChef', registerChef);
     app.post('/api/chef/:userId/recipes/:recipeId', endorseRecipe)
     app.get('/api/chef/:userId/recipes', findAllEndorsed)
+    app.get('/api/chef/:userId', findById)
     app.delete('/api/chef/:userId/recipes/:recipeId', removeEndorsed)
 
 };

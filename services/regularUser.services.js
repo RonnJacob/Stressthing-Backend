@@ -1,5 +1,5 @@
 const regularUserModel = require('../daos/regularUser.dao.server');
-const userDao= require('../daos/user.dao.server');
+const userDao = require('../daos/user.dao.server');
 const recipeModel = require('../daos/recipe.dao.server');
 
 //TODO
@@ -17,7 +17,7 @@ const recipeModel = require('../daos/recipe.dao.server');
 
 module.exports = function (app) {
 
-    registerRegularUser = (req, resp) =>{
+    registerRegularUser = (req, resp) => {
         var user = req.body;
         const u = new User();
         // u = {
@@ -31,8 +31,8 @@ module.exports = function (app) {
         u.username = user["username"];
         u.password = u.generateHash(user["password"]);
         u.firstName = user["firstName"];
-        u.lastName =  user["lastName"];
-        u.userType =  "REGULAR";
+        u.lastName = user["lastName"];
+        u.userType = "REGULAR";
         return userDao.createUser(u).then(
             res => {
                 regUser = {
@@ -48,6 +48,13 @@ module.exports = function (app) {
         //     req.session.user = user;
         //     res.send(user);
         // });
+    };
+
+    findById = (req, res) => {
+        regularUserModel.findRegularUserById(req.params['userId']).then(user => {
+            console.log(user)
+            res.send(user)
+        });
     };
 
     favoriteARecipe = (req, res) => {
@@ -70,6 +77,7 @@ module.exports = function (app) {
     app.post('/api/registerUser', registerRegularUser);
     app.post('/api/regularUser/:userId/recipes/:recipeId', favoriteARecipe)
     app.get('/api/regularUser/:userId/recipes', findAllFavorites)
+    app.get('/api/regularUser/:userId', findById)
     app.delete('/api/regularUser/:userId/recipes/:recipeId', removeAFavorite)
 
 };
