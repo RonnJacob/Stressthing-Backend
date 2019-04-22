@@ -18,7 +18,7 @@ module.exports = function (app) {
             res => {
                 chef = {
                     _id: res["_id"],
-                    blogPost:user["blogPost"]
+                    blogPost: user["blogPost"]
                 }
                 return chefDao.createChef(chef).then(newUser => {
                     req.session.user = newUser;
@@ -34,12 +34,14 @@ module.exports = function (app) {
 
     endorseRecipe = (req, res) => {
         chefDao.endorseRecipe(req.params['userId'], req.params['recipeId'])
+            .then(() => recipeModel.endorseByChef(req.params['userId'], req.params['recipeId']))
             .then(res.send('Recipe with ID ' + req.params['recipeId'] + ' ' +
                 'has been added to endorsed of user with ID ' + req.params['userId'] + ": " + +res.statusCode));
     }
 
     removeEndorsed = (req, res) => {
         chefDao.removeEndorsed(req.params['userId'], req.params['recipeId'])
+            .then(() => recipeModel.removedEndorsementByChef(req.params['userId'], req.params['recipeId']))
             .then(res.send('Recipe with ID ' + req.params['recipeId'] + ' ' +
                 'has been removed from endorsed of user with ID ' + req.params['userId'] + ": " + +res.statusCode));
     }

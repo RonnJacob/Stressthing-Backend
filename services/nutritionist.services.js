@@ -18,7 +18,7 @@ module.exports = function (app) {
             res => {
                 nutritionist = {
                     _id: res["_id"],
-                    appointmentLink:user["appointmentLink"]
+                    appointmentLink: user["appointmentLink"]
                 }
                 return nutritionistDao.createNutritionist(nutritionist).then(newUser => {
                     req.session.user = newUser;
@@ -34,12 +34,14 @@ module.exports = function (app) {
 
     endorseRecipe = (req, res) => {
         nutritionistDao.endorseRecipe(req.params['userId'], req.params['recipeId'])
+            .then(() => recipeModel.endorseByNutritionist(req.params['userId'], req.params['recipeId']))
             .then(res.send('Recipe with ID ' + req.params['recipeId'] + ' ' +
                 'has been added to endorsed of user with ID ' + req.params['userId'] + ": " + +res.statusCode));
     }
 
     removeEndorsed = (req, res) => {
         nutritionistDao.removeEndorsed(req.params['userId'], req.params['recipeId'])
+            .then(() => recipeModel.removedEndorsementByNutritionist(req.params['userId'], req.params['recipeId']))
             .then(res.send('Recipe with ID ' + req.params['recipeId'] + ' ' +
                 'has been removed from endorsed of user with ID ' + req.params['userId'] + ": " + +res.statusCode));
     }

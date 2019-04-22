@@ -1,0 +1,113 @@
+{
+  "users": [
+    {
+      "_id": 1,
+      "username": "john",
+      "password": "jd",
+      "firstName": "John",
+      "lastName": "Doe",
+      "userType": "REGULAR",
+      "ownRecipes": [1,2,3,4,5],
+      "favoriteRecipes": [3,5,9,10]
+    },
+    {
+      "_id": 234,
+      "username": "bob",
+      "password": "bob",
+      "firstName": "Bob",
+      "lastName": "Hope",
+      "gradYear": 2021,
+      "scholarship": 12000
+    }
+  ],
+  "questions": [
+    {
+      "_id": 321,
+      "question": "Is the following schema valid?",
+      "points": 10,
+      "questionType": "TRUE_FALSE",
+      "trueFalse": {
+        "isTrue": false
+      }
+    },
+    {
+      "_id": 432,
+      "question": "DAO stands for Dynamic Access Object.",
+      "points": 10,
+      "questionType": "TRUE_FALSE",
+      "trueFalse": {
+        "isTrue": false
+      }
+    },
+    {
+      "_id": 543,
+      "question": "What does JPA stand for?",
+      "points": 10,
+      "questionType": "MULTIPLE_CHOICE",
+      "multipleChoice": {
+        "choices": "Java Persistence API,Java Persisted Application,JavaScript Persistence API,JSON Persistent Associations",
+        "correct": 1
+      }
+    },
+    {
+      "_id": 654,
+      "question": "What does ORM stand for?",
+      "points": 10,
+      "questionType": "MULTIPLE_CHOICE",
+      "multipleChoice": {
+        "choices": "Object Relational Model,Object Relative Markup,Object Reflexive Model,Object Relational Mapping",
+        "correct": 4
+      }
+    }
+  ],
+  "answers": [
+    {
+      "_id": 123,
+      "student": 123,
+      "question": 321,
+      "trueFalseAnswer": true
+    },
+    {
+      "_id": 234,
+      "student": 123,
+      "question": 432,
+      "trueFalseAnswer": false
+    },
+    {
+      "_id": 345,
+      "student": 123,
+      "question": 543,
+      "multipleChoiceAnswer": 1
+    },
+    {
+      "_id": 456,
+      "student": 123,
+      "question": 654,
+      "multipleChoiceAnswer": 2
+    },
+    {
+      "_id": 567,
+      "student": 234,
+      "question": 321,
+      "trueFalseAnswer": false
+    },
+    {
+      "_id": 678,
+      "student": 234,
+      "question": 432,
+      "trueFalseAnswer": true
+    },
+    {
+      "_id": 789,
+      "student": 234,
+      "question": 543,
+      "multipleChoiceAnswer": 3
+    },
+    {
+      "_id": 890,
+      "student": 234,
+      "question": 654,
+      "multipleChoiceAnswer": 4
+    }
+  ]
+}
