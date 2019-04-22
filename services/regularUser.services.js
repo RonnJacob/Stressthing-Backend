@@ -19,7 +19,7 @@ module.exports = function (app) {
 
     registerRegularUser = (req, resp) =>{
         var user = req.body;
-        const u = new User();
+        // const u = new User();
         u = {
             username: user["username"],
             password: user["password"],
