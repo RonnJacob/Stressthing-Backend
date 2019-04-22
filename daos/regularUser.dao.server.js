@@ -1,6 +1,5 @@
 const regularUserModel = require('../models/regularUser.model.server');
 
-
 createRegularUser = regularUser =>
     regularUserModel.create(regularUser);
 
