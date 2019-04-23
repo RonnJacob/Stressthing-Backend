@@ -26,7 +26,10 @@ favoriteARecipe = (userId, recipeId) => regularUserModel.update({_id: userId},
 removeAFavorite = (userId, recipeId) => regularUserModel.update({_id: userId},
     {$pull: {favoriteRecipes: recipeId}});
 
+removeOwnedRecipe = (userId, recipeId) => regularUserModel.update({_id: userId},
+    {$pull: {ownRecipes: recipeId}});
+
 module.exports = {
     createRegularUser, findAllRegularUser, findRegularUserById, updateRegularUser, deleteRegularUser, updateUserRating,
-    favoriteARecipe, removeAFavorite
+    favoriteARecipe, removeAFavorite, removeOwnedRecipe
 };

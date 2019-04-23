@@ -63,6 +63,12 @@ module.exports = function (app) {
                 'has been removed from favorites of user with ID ' + req.params['userId'] + ": " + +res.statusCode));
     }
 
+    removeOwnRecipe = (req, res) => {
+        regularUserModel.removeAFavorite(req.params['userId'], req.params['recipeId'])
+            .then(res.send('Recipe with ID ' + req.params['recipeId'] + ' ' +
+                'has been removed from own recipe of user with ID ' + req.params['userId'] + ": " + +res.statusCode));
+    }
+
     findAllFavorites = (req, res) => {
         regularUserModel.findRegularUserById(req.params['userId'])
             .then(user => recipeModel.findAllForRecipeIds(user[0]._doc.favoriteRecipes))
@@ -78,5 +84,6 @@ module.exports = function (app) {
     app.get('/api/regularUser/:userId/recipes', findAllFavorites)
     app.get('/api/regularUser/:userId', findById)
     app.delete('/api/regularUser/:userId/recipes/:recipeId', removeAFavorite)
+    app.delete('/api/user/:userId/recipes/:recipeId', removeOwnRecipe)
 
 };
