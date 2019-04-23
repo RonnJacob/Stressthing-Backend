@@ -5,7 +5,7 @@ createRegularUser = regularUser =>
 
 findAllRegularUser = () => regularUserModel.find();
 
-findRegularUserById = regularUserId => regularUserModel.findById(regularUserId);
+findRegularUserById = regularUserId => regularUserModel.find({_id: regularUserId});
 
 findOwnedRecipesForRegularUser = regularUserId => regularUserModel.find({_id: regularUserId}, {ownRecipes: 1})
 
@@ -26,10 +26,10 @@ favoriteARecipe = (userId, recipeId) => regularUserModel.update({_id: userId},
 removeAFavorite = (userId, recipeId) => regularUserModel.update({_id: userId},
     {$pull: {favoriteRecipes: recipeId}});
 
-findAllFavoriteRecipes = (userId) => regularUserModel.find({_id: userId},
-    {favoriteRecipes: 1, _id: 0});
+removeOwnedRecipe = (userId, recipeId) => regularUserModel.update({_id: userId},
+    {$pull: {ownRecipes: recipeId}});
 
 module.exports = {
     createRegularUser, findAllRegularUser, findRegularUserById, updateRegularUser, deleteRegularUser, updateUserRating,
-    favoriteARecipe, removeAFavorite, findAllFavoriteRecipes
+    favoriteARecipe, removeAFavorite, removeOwnedRecipe
 };

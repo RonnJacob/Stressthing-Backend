@@ -23,7 +23,7 @@ deleteRecipe = (recipeId) => recipeModel.remove({_id: recipeId});
 
 findRecipesOwnedByUser = userId => recipeModel.find({ownedBy: userId})
 
-findAllForRecipeIds = recipeIds => recipeModel.find({$in: {_id: recipeIds}})
+findAllForRecipeIds = recipeIds => recipeModel.find({_id: {$in: recipeIds}})
 
 endorseByChef = (userId, recipeId) => recipeModel.updateOne({_id: recipeId}, {
     // $pull: {endorsedByChef: userId},

@@ -1,5 +1,5 @@
 const regularUserModel = require('../daos/regularUser.dao.server');
-const userDao= require('../daos/user.dao.server');
+const userDao = require('../daos/user.dao.server');
 const recipeModel = require('../daos/recipe.dao.server');
 
 //TODO
@@ -17,9 +17,8 @@ const recipeModel = require('../daos/recipe.dao.server');
 
 module.exports = function (app) {
 
-    registerRegularUser = (req, resp) =>{
+    registerRegularUser = (req, resp) => {
         var user = req.body;
-        // const u = new User();
         u = {
             username: user["username"],
             password: user["password"],
@@ -27,12 +26,6 @@ module.exports = function (app) {
             lastName: user["lastName"],
             userType: "REGULAR"
         };
-
-        // u.username = user["username"];
-        // u.password = u.generateHash(user["password"]);
-        // u.firstName = user["firstName"];
-        // u.lastName =  user["lastName"];
-        // u.userType =  "REGULAR";
         return userDao.createUser(u).then(
             res => {
                 regUser = {
@@ -50,6 +43,13 @@ module.exports = function (app) {
         // });
     };
 
+    findById = (req, res) => {
+        regularUserModel.findRegularUserById(req.params['userId']).then(user => {
+            console.log(user[0])
+            res.send(user[0])
+        });
+    };
+
     favoriteARecipe = (req, res) => {
         regularUserModel.favoriteARecipe(req.params['userId'], req.params['recipeId'])
             .then(res.send('Recipe with ID ' + req.params['recipeId'] + ' ' +
@@ -62,14 +62,27 @@ module.exports = function (app) {
                 'has been removed from favorites of user with ID ' + req.params['userId'] + ": " + +res.statusCode));
     }
 
+    removeOwnRecipe = (req, res) => {
+        regularUserModel.removeAFavorite(req.params['userId'], req.params['recipeId'])
+            .then(res.send('Recipe with ID ' + req.params['recipeId'] + ' ' +
+                'has been removed from own recipe of user with ID ' + req.params['userId'] + ": " + +res.statusCode));
+    }
+
     findAllFavorites = (req, res) => {
-        regularUserModel.findAllFavoriteRecipes(req.params['userID'])
-            .then(recipeIds => recipeModel.findAllForRecipeIds(recipeIds))
-            .then(recipes => res.send(recipes));
+        regularUserModel.findRegularUserById(req.params['userId'])
+            .then(user => recipeModel.findAllForRecipeIds(user[0]._doc.favoriteRecipes))
+            .then(recipesModels => {
+                let recipes = [];
+                recipesModels.map(r => recipes.push(r._doc))
+                console.log(recipes)
+                return res.send(recipes)
+            })
     }
     app.post('/api/registerUser', registerRegularUser);
     app.post('/api/regularUser/:userId/recipes/:recipeId', favoriteARecipe)
     app.get('/api/regularUser/:userId/recipes', findAllFavorites)
+    app.get('/api/regularUser/:userId', findById)
     app.delete('/api/regularUser/:userId/recipes/:recipeId', removeAFavorite)
+    app.delete('/api/user/:userId/recipes/:recipeId', removeOwnRecipe)
 
 };
