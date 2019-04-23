@@ -46,8 +46,8 @@ module.exports = function (app) {
 
     findById = (req, res) => {
         regularUserModel.findRegularUserById(req.params['userId']).then(user => {
-            console.log(user)
-            res.send(user)
+            console.log(user[0])
+            res.send(user[0])
         });
     };
 
@@ -64,9 +64,14 @@ module.exports = function (app) {
     }
 
     findAllFavorites = (req, res) => {
-        regularUserModel.findAllFavoriteRecipes(req.params['userID'])
-            .then(recipeIds => recipeModel.findAllForRecipeIds(recipeIds))
-            .then(recipes => res.send(recipes));
+        regularUserModel.findRegularUserById(req.params['userId'])
+            .then(user => recipeModel.findAllForRecipeIds(user[0]._doc.favoriteRecipes))
+            .then(recipesModels => {
+                let recipes = [];
+                recipesModels.map(r => recipes.push(r._doc))
+                console.log(recipes)
+                return res.send(recipes)
+            })
     }
     app.post('/api/registerUser', registerRegularUser);
     app.post('/api/regularUser/:userId/recipes/:recipeId', favoriteARecipe)
