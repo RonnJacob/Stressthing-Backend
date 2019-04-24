@@ -33,7 +33,8 @@ module.exports = function (app) {
     };
 
     findById = (req, res) => {
-        chefDao.findChefById(req.params['userId']).then(user => res.send(user));
+        chefDao.findChefById(req.params['userId'])
+            .then(user => res.send(user));
     };
 
     endorseRecipe = (req, res) => {
@@ -50,10 +51,17 @@ module.exports = function (app) {
                 'has been removed from endorsed of user with ID ' + req.params['userId'] + ": " + +res.statusCode));
     }
 
+    // findAllEndorsed = (req, res) => {
+    //     chefDao.findAllEndorsed(req.params['userId'])
+    //         .then(recipeIds => recipeModel.findAllForRecipeIds(recipeIds))
+    //         .then(recipes => res.send(recipes));
+    // }
+
     findAllEndorsed = (req, res) => {
-        chefDao.findAllEndorsed(req.params['userID'])
-            .then(recipeIds => recipeModel.findAllForRecipeIds(recipeIds))
-            .then(recipes => res.send(recipes));
+
+        chefDao.findEndorsedRecipesByChef(req.params['userId'])
+        .then(recipeIds => recipeModel.findAllForRecipeIds(recipeIds[0].endorsedRecipes))
+        .then(recipes => res.send(recipes))
     }
 
 

@@ -68,16 +68,25 @@ module.exports = function (app) {
                 'has been removed from own recipe of user with ID ' + req.params['userId'] + ": " + +res.statusCode));
     }
 
+    // findAllFavorites = (req, res) => {
+    //     regularUserModel.findRegularUserById(req.params['userId'])
+    //         .then(user => recipeModel.findAllForRecipeIds(user[0]._doc.favoriteRecipes))
+    //         .then(recipesModels => {
+    //             let recipes = [];
+    //             recipesModels.map(r => recipes.push(r._doc))
+    //             console.log(recipes)
+    //             return res.send(recipes)
+    //         })
+    // }
+
     findAllFavorites = (req, res) => {
-        regularUserModel.findRegularUserById(req.params['userId'])
-            .then(user => recipeModel.findAllForRecipeIds(user[0]._doc.favoriteRecipes))
-            .then(recipesModels => {
-                let recipes = [];
-                recipesModels.map(r => recipes.push(r._doc))
-                console.log(recipes)
-                return res.send(recipes)
-            })
+
+        regularUserModel.findFavoriteRecipesForRegularUser(req.params['userId'])
+            // .then(recipeIds => res.send(recipeIds[0].favoriteRecipes))
+            .then(recipeIds => recipeModel.findAllForRecipeIds(recipeIds[0].favoriteRecipes))
+            .then(recipes => res.send(recipes))
     }
+
     app.post('/api/registerUser', registerRegularUser);
     app.post('/api/regularUser/:userId/recipes/:recipeId', favoriteARecipe)
     app.get('/api/regularUser/:userId/recipes', findAllFavorites)
