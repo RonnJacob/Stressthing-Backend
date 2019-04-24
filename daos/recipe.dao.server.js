@@ -41,7 +41,10 @@ removedEndorsementByNutritionist = (userId, recipeId) => recipeModel.update({_id
 
 
 //doubtful
-findRecipesForIngredients = (givenIngredients) => recipeModel.find({ingredients: {$all: givenIngredients}});
+// findRecipesForIngredients = (givenIngredients) => recipeModel.find({ingredients: {$all: givenIngredients}});
+
+findRecipesForIngredients = (ingredient) => recipeModel.find({ ingredients: ingredient });
+
 
 module.exports = {
     createRecipe,
@@ -54,5 +57,6 @@ module.exports = {
     endorseByChef,
     endorseByNutritionist,
     removedEndorsementByChef,
-    removedEndorsementByNutritionist
+    removedEndorsementByNutritionist,
+    findRecipesForIngredients
 };
