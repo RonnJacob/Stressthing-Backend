@@ -9,6 +9,9 @@ findRegularUserById = regularUserId => regularUserModel.find({_id: regularUserId
 
 findOwnedRecipesForRegularUser = regularUserId => regularUserModel.find({_id: regularUserId}, {ownRecipes: 1})
 
+findFavoriteRecipesForRegularUser = userId =>
+    regularUserModel.find({_id: userId}, {favoriteRecipes: 1})
+
 updateRegularUser = (userId, updatedRegularUser) =>
     regularUserModel.update({_id: userId}, {$set: updatedRegularUser});
 
@@ -31,5 +34,5 @@ removeOwnedRecipe = (userId, recipeId) => regularUserModel.update({_id: userId},
 
 module.exports = {
     createRegularUser, findAllRegularUser, findRegularUserById, updateRegularUser, deleteRegularUser, updateUserRating,
-    favoriteARecipe, removeAFavorite, removeOwnedRecipe
+    favoriteARecipe, removeAFavorite, removeOwnedRecipe,findFavoriteRecipesForRegularUser
 };

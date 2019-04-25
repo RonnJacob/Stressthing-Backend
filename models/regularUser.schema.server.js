@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+
 const RegularUserSchema = mongoose.Schema({
     favoriteRecipes: [{ type : String, ref: 'RecipeModel' }],
     ownRecipes: [{ type : String, ref: 'RecipeModel' }],

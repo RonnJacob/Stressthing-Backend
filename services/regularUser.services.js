@@ -68,19 +68,42 @@ module.exports = function (app) {
                 'has been removed from own recipe of user with ID ' + req.params['userId'] + ": " + +res.statusCode));
     }
 
+    // findAllFavorites = (req, res) => {
+    //     regularUserModel.findRegularUserById(req.params['userId'])
+    //         .then(user => recipeModel.findAllForRecipeIds(user[0]._doc.favoriteRecipes))
+    //         .then(recipesModels => {
+    //             let recipes = [];
+    //             recipesModels.map(r => recipes.push(r._doc))
+    //             console.log(recipes)
+    //             return res.send(recipes)
+    //         })
+    // }
+
     findAllFavorites = (req, res) => {
-        regularUserModel.findRegularUserById(req.params['userId'])
-            .then(user => recipeModel.findAllForRecipeIds(user[0]._doc.favoriteRecipes))
-            .then(recipesModels => {
-                let recipes = [];
-                recipesModels.map(r => recipes.push(r._doc))
-                console.log(recipes)
-                return res.send(recipes)
-            })
+
+        regularUserModel.findFavoriteRecipesForRegularUser(req.params['userId'])
+            // .then(recipeIds => res.send(recipeIds[0].favoriteRecipes))
+            .then(recipeIds => {
+                var filtered = recipeIds[0].favoriteRecipes.filter(function(value){
+
+                    return value.length>5;
+
+                });
+                return recipeModel.findAllForRecipeIds(filtered)})
+            .then(recipes => res.send(recipes))
     }
+
+    findFavoriteRecipeId = (req, res) => {
+
+        regularUserModel.findFavoriteRecipesForRegularUser(req.params['userId'])
+         .then(recipeIds => res.send(recipeIds[0].favoriteRecipes))
+
+    }
+
     app.post('/api/registerUser', registerRegularUser);
     app.post('/api/regularUser/:userId/recipes/:recipeId', favoriteARecipe)
     app.get('/api/regularUser/:userId/recipes', findAllFavorites)
+    app.get('/api/regularUser/:userId/recipeId', findFavoriteRecipeId)
     app.get('/api/regularUser/:userId', findById)
     app.delete('/api/regularUser/:userId/recipes/:recipeId', removeAFavorite)
     app.delete('/api/user/:userId/recipes/:recipeId', removeOwnRecipe)
