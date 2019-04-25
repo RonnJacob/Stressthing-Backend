@@ -83,13 +83,27 @@ module.exports = function (app) {
 
         regularUserModel.findFavoriteRecipesForRegularUser(req.params['userId'])
             // .then(recipeIds => res.send(recipeIds[0].favoriteRecipes))
-            .then(recipeIds => recipeModel.findAllForRecipeIds(recipeIds[0].favoriteRecipes))
+            .then(recipeIds => {
+                var filtered = recipeIds[0].favoriteRecipes.filter(function(value){
+
+                    return value.length>5;
+
+                });
+                return recipeModel.findAllForRecipeIds(filtered)})
             .then(recipes => res.send(recipes))
+    }
+
+    findFavoriteRecipeId = (req, res) => {
+
+        regularUserModel.findFavoriteRecipesForRegularUser(req.params['userId'])
+         .then(recipeIds => res.send(recipeIds[0].favoriteRecipes))
+
     }
 
     app.post('/api/registerUser', registerRegularUser);
     app.post('/api/regularUser/:userId/recipes/:recipeId', favoriteARecipe)
     app.get('/api/regularUser/:userId/recipes', findAllFavorites)
+    app.get('/api/regularUser/:userId/recipeId', findFavoriteRecipeId)
     app.get('/api/regularUser/:userId', findById)
     app.delete('/api/regularUser/:userId/recipes/:recipeId', removeAFavorite)
     app.delete('/api/user/:userId/recipes/:recipeId', removeOwnRecipe)
