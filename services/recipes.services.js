@@ -12,8 +12,12 @@ module.exports = app => {
         recipeDao.findRecipeById(req.params['recipeId']).then(recipe => res.send(recipe));
     }
 
+    searchRecipeByName = (req, res) => {
+        recipeDao.searchRecipeByName(req.params['searchValue']).then(recipe => res.send(recipe));
+    }
+
     findRecipeByIngredient = (req, res) => {
-        recipeDao.findRecipesForIngredients(req.params['ingredient']).then(recipe => res.send(recipe));
+        recipeDao.findRecipesForIngredients(req.params['ingredient']).then(recipes => res.send(recipes));
     }
 
     updateOwnedRecipe = (req, res) => {
@@ -31,6 +35,7 @@ module.exports = app => {
     app.put('/api/recipes/:recipeId', updateOwnedRecipe)
     app.delete('/api/recipes/:recipeId', deleteOwnedRecipe)
     app.get('/api/recipes/:recipeId', findRecipeById)
+    app.get('/api/recipes/searchRecipe/:searchValue',searchRecipeByName )
     app.get('/api/users/:userId/recipes', findOwnedRecipes)
     app.post('/api/recipes', addOwnedRecipe)
     app.get('/api/ingredients/:ingredient/recipes', findRecipeByIngredient)

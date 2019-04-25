@@ -25,6 +25,8 @@ findRecipesOwnedByUser = userId => recipeModel.find({ownedBy: userId})
 
 findAllForRecipeIds = recipeIds => recipeModel.find({_id: {$in: recipeIds}})
 
+searchRecipeByName = searchRecipe => recipeModel.find({name: { "$regex": searchRecipe, "$options": "i" } })
+
 endorseByChef = (userId, recipeId) => recipeModel.updateOne({_id: recipeId}, {
     // $pull: {endorsedByChef: userId},
     $push: {endorsedByChef: userId}
@@ -47,6 +49,7 @@ findRecipesForIngredients = (ingredient) => recipeModel.find({ ingredients: ingr
 
 
 module.exports = {
+    searchRecipeByName,
     createRecipe,
     findAllRecipe,
     findRecipeById,
