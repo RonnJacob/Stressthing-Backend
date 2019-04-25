@@ -57,17 +57,53 @@ module.exports = function (app) {
     //         .then(recipes => res.send(recipes));
     // }
 
+    // findAllEndorsed = (req, res) => {
+    //
+    //     chefDao.findEndorsedRecipesByChef(req.params['userId'])
+    //     .then(recipeIds => recipeModel.findAllForRecipeIds(recipeIds[0].endorsedRecipes))
+    //     .then(recipes => res.send(recipes))
+    // }
+    //
+    // findEndorsedRecipeId = (req, res) => {
+    //
+    //     chefDao.findEndorsedRecipesByChef(req.params['userId'])
+    //         .then(recipeIds => res.send(recipeIds[0].endorsedRecipes))
+    //
+    // }
+
+
     findAllEndorsed = (req, res) => {
 
         chefDao.findEndorsedRecipesByChef(req.params['userId'])
-        .then(recipeIds => recipeModel.findAllForRecipeIds(recipeIds[0].endorsedRecipes))
-        .then(recipes => res.send(recipes))
+        // .then(recipeIds => res.send(recipeIds[0].favoriteRecipes))
+            .then(recipeIds => {
+                var filtered=[]
+                if(recipeIds[0].endorsedRecipes){
+                filtered = recipeIds[0].endorsedRecipes.filter(function(value){
+
+                    return value.length>5;
+
+                });}
+                return recipeModel.findAllForRecipeIds(filtered)})
+            .then(recipes => res.send(recipes))
     }
 
+    findEndorsedRecipeId = (req, res) => {
+
+        chefDao.findEndorsedRecipesByChef(req.params['userId'])
+            .then(recipeIds => res.send(recipeIds[0].endorsedRecipes))
+
+    }
+
+    const updateChef = (req, res) => {
+        chefDao.updateChef(req.params.id, req.body).then(chef => res.send(chef));
+    };
 
     app.post('/api/registerChef', registerChef);
     app.post('/api/chef/:userId/recipes/:recipeId', endorseRecipe)
     app.get('/api/chef/:userId/recipes', findAllEndorsed)
+    app.put('/api/chef/:id', updateChef);
+    app.get('/api/chef/:userId/recipeId', findEndorsedRecipeId)
     app.get('/api/chef/:userId', findById)
     app.delete('/api/chef/:userId/recipes/:recipeId', removeEndorsed)
 

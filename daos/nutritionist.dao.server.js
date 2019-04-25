@@ -21,8 +21,9 @@ removeEndorsed = (userId, recipeId) => nutritionistModel.update({_id: userId},
 
 findAllEndorsed = (userId) => nutritionistModel.find({_id: userId},
     {endorsedRecipes: 1, _id: 0});
-
+findEndorsedRecipesByNutritionist = userId =>
+    nutritionistModel.find({_id: userId}, {endorsedRecipes: 1})
 module.exports = {
     createNutritionist, findAllNutritionist, findNutritionistById, updateNutritionist, deleteNutritionist,
-    endorseRecipe, removeEndorsed, findAllEndorsed
+    endorseRecipe, removeEndorsed, findAllEndorsed,findEndorsedRecipesByNutritionist
 };

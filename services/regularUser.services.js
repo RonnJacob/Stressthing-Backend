@@ -82,7 +82,7 @@ module.exports = function (app) {
     findAllFavorites = (req, res) => {
 
         regularUserModel.findFavoriteRecipesForRegularUser(req.params['userId'])
-            // .then(recipeIds => res.send(recipeIds[0].favoriteRecipes))
+        // .then(recipeIds => res.send(recipeIds[0].favoriteRecipes))
             .then(recipeIds => {
                 var filtered = recipeIds[0].favoriteRecipes.filter(function(value){
 
@@ -96,7 +96,7 @@ module.exports = function (app) {
     findFavoriteRecipeId = (req, res) => {
 
         regularUserModel.findFavoriteRecipesForRegularUser(req.params['userId'])
-         .then(recipeIds => res.send(recipeIds[0].favoriteRecipes))
+            .then(recipeIds => res.send(recipeIds[0].favoriteRecipes))
 
     }
 

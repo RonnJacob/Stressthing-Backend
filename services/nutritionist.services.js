@@ -50,16 +50,43 @@ module.exports = function (app) {
                 'has been removed from endorsed of user with ID ' + req.params['userId'] + ": " + +res.statusCode));
     }
 
+    // findAllEndorsed = (req, res) => {
+    //     nutritionistDao.findAllEndorsed(req.params['userID'])
+    //         .then(recipeIds => recipeModel.findAllForRecipeIds(recipeIds))
+    //         .then(recipes => res.send(recipes));
+    // }
+
     findAllEndorsed = (req, res) => {
-        nutritionistDao.findAllEndorsed(req.params['userID'])
-            .then(recipeIds => recipeModel.findAllForRecipeIds(recipeIds))
-            .then(recipes => res.send(recipes));
+
+        nutritionistDao.findEndorsedRecipesByNutritionist(req.params['userId'])
+        // .then(recipeIds => res.send(recipeIds[0].favoriteRecipes))
+            .then(recipeIds => {
+                var filtered=[]
+                if(recipeIds[0].endorsedRecipes){
+                    filtered = recipeIds[0].endorsedRecipes.filter(function(value){
+
+                        return value.length>5;
+
+                    });}
+                return recipeModel.findAllForRecipeIds(filtered)})
+            .then(recipes => res.send(recipes))
     }
 
+    findEndorsedRecipeId = (req, res) => {
 
+        nutritionistDao.findEndorsedRecipesByNutritionist(req.params['userId'])
+            .then(recipeIds => res.send(recipeIds[0].endorsedRecipes))
+
+    }
+
+    const updateNutritionist = (req, res) => {
+        nutritionistDao.updateNutritionist(req.params.id, req.body).then(nutritionist => res.send(nutritionist));
+    };
     app.post('/api/registerNutritionist', registerNutritionist);
     app.post('/api/nutritionist/:userId/recipes/:recipeId', endorseRecipe)
     app.get('/api/nutritionist/:userId/recipes', findAllEndorsed)
+    app.get('/api/nutritionist/:userId/recipeId', findEndorsedRecipeId)
+    app.put('/api/nutritionist/:id', updateNutritionist);
     app.get('/api/nutritionist/:userId', findById)
     app.delete('/api/nutritionist/:userId/recipes/:recipeId', removeEndorsed)
 
