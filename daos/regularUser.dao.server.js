@@ -23,8 +23,9 @@ updateUserIngredients = (userId, rating) =>
 
 deleteRegularUser = (regularUserId) => regularUserModel.remove({_id: regularUserId});
 
-favoriteARecipe = (userId, recipeId) => regularUserModel.update({_id: userId},
-    {$push: {favoriteRecipes: recipeId}});
+favoriteARecipe = (userId, recipeId) =>
+    regularUserModel.update({_id: userId},
+        {$push: {favoriteRecipes: recipeId}});
 
 removeAFavorite = (userId, recipeId) => regularUserModel.update({_id: userId},
     {$pull: {favoriteRecipes: recipeId}});

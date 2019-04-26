@@ -85,11 +85,12 @@ module.exports = function (app) {
         // .then(recipeIds => res.send(recipeIds[0].favoriteRecipes))
             .then(recipeIds => {
                 var filtered = recipeIds[0].favoriteRecipes.filter(function(value){
-                    return value.length>5;
-
+                    return value.length > 5;
                 });
                 return recipeModel.findAllForRecipeIds(filtered)})
-            .then(recipes => res.send(recipes))
+            .then(recipes => {
+                res.send(recipes)
+            })
     }
 
     findFavoriteRecipeId = (req, res) => {
