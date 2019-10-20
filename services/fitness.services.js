@@ -12,6 +12,10 @@ module.exports = app => {
         fitnessDao.findFitnessById(req.params['fitnessId']).then(fitness => res.send(fitness));
     }
 
+    findLatestFitnessData = (req, res) => {
+      fitnessDao.findLatestFitnessData(req.params['userId']).then(fitness => res.send(fitness));
+    }
+
     deleteFitness = (req, res) => {
         fitnessDao.deleteFitness(req.params['fitnessId']).then(res.send('Operation completed with status code:' + res.statusCode));
     }
@@ -20,5 +24,6 @@ module.exports = app => {
     app.delete('/api/fitness/:fitnessId', deleteFitness)
     app.get('/api/fitness/:fitnessId', findFitnessById)
     app.get('/api/fitness/:userId/fitnessdata', findFitnessByUser)
+    app.get('/api/fitness/:userId/latest', findLatestFitnessData)
     app.post('/api/fitness', addFitness)
 }

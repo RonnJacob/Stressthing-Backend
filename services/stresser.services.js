@@ -1,7 +1,10 @@
 const stresserDao = require('../daos/stressers.dao.server')
 module.exports = app => {
     addStresser = (req, res) => {
-        stresserDao.createStresser(req.body).then(stresser => res.send(stresser));
+        stresserDao.createStresser(req.body).then(stresser => {
+          console.log(stresser);
+          res.send(stresser);
+        })
     }
 
     findStresserByUser = (req, res) => {
