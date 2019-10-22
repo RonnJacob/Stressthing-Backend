@@ -20,7 +20,7 @@ list1 = ["Biking" , "Running", "Walking", "Rest", "Swimming"]
 
 
 #print(fake.date_between(start_date=start_date, end_date='+1m'))
-for i in range(1,1000):
+for i in range(1,20):
     fitness_data = {}
     fitness_data['timestamp']=str(fake.date_between(start_date=start_date, end_date='+1m'))
     fitness_data['activity']=str(random.choice(list1))

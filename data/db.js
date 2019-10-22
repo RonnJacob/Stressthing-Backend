@@ -4,6 +4,6 @@ module.exports = function(){
     var connectionString = 'mongodb://127.0.0.1/';
          connectionString += databaseName;
     // var connectionString =
-        // 'mongodb://heroku_xkx7wdmr:3fhd03cse9lkkgoe1t0s8nnopb@ds145456.mlab.com:45456/heroku_xkx7wdmr';
+        // 'mongodb://heroku_ws4h5k2l:5g3ik06q8aujjo1d4fuq15grfl@ds253871.mlab.com:53871/heroku_ws4h5k2l';
     mongoose.connect(connectionString, { useNewUrlParser: true});
 };
