@@ -39,7 +39,7 @@ app.set('port', port);
 
 
 app.get('',function(req, res) {
-    res.send('<h1>Recipe RESTful Services<h1>');
+    res.send('<h1>Stressthing RESTful Services<h1>');
 });
 
 require('./services/user.services')(app);
